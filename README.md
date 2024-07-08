@@ -37,3 +37,29 @@ If you wish to test the model with the dataset used, please send an e-mail to Pe
 | Friday| Malicious flows | 1000 |
 | Total | 10000 | 19000 |
 
+# General architecture 
+
+The experiment was structured in different stages, and was based on the correlation of the features with the data:
+
+First phase:
+ + First Stage: features with a correlation of $70\%$ or more were intriguingly grouped into Cluster 1, which indicates a substantial correlation between the observed frequencies.
+ + Second Stage: features with a correlation of $80\%$ or more were significantly grouped into Cluster 2, reflecting a strong correlation between the frequencies.
+ + Third Stage: Finally, features with a $90\%$ or more correlation were grouped into Cluster 3, highlighting a robust correlation. Each stage was meticulously planned to ensure a rigorous and detailed analysis of data trends by Benford's Law.
++ Fourth Stage: A comparison was made between the number of features extracted by the method based on Pearson's correlation and other methods based on distance functions. The results show that the correlation technique more effectively selects the ideal features for identifying malicious flows.
+Second phase:
++ An ensemble was developed from the p-values to maximise the detection of malicious flows, reducing the number of false positives and improving the evaluation of the model.
+
+![General architecture](.jpg)
+
+
+
+
+
+
+
+
+
+
+
+
+
