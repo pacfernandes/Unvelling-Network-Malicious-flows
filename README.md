@@ -51,14 +51,17 @@ Second phase:
 
 ![General architecture](Arquitetura_geral_inicial.jpg) 
 
-Pre-processing begins with extracting the first digit of each stream's characteristics and subsequent calculation of the correlation between the frequencies of occurrence of each digit and the empirical frequency of Benford's Law. Only features with a value of 70 percent or more were considered. Several Matlab scripts were created to extract the first digit and store the data in a digit matrix.
+The figure shows the general architecture of the model, divided into three main blocks: pre-processing, processing and analysing the results. This model is based on Benford's Law, distance functions and Bayes' Theorem, with an ensemble to aggregate the p values obtained through Bayes' Theorem.
 
-The data relating to extracting the first digit of each flow is stored in a vector of characteristics, each labelled. If the flow is benign, it is labelled 0; if it is malicious, it is labelled 1.
-At the end of pre-processing, a properly labelled data set is available to apply distance functions based on statistical models: MAD, KS and KL Divergence.
+Preprocessing involved reducing the data and calculating the Pearson correlation using Microsoft Excel for each flow characteristic. A Matlab script was developed to extract the first digit of each network flow, storing this data in a matrix of digits.
 
-The processing phase consists of two stages. The first stage counts the first digits from the values obtained in the pre-processing stage for each flow. The second stage calculates the absolute frequency of each digit, taking the entire data set as a reference. Next, the relative frequency of the values obtained in the previous two stages is calculated, which consists of the quotient between the absolute frequency of each digit and the sum of the total number of digits for each flow under study, allowing subsequent comparison with Benford's Law. Finally, the values obtained by calculating the relative frequency are stored in a dataset for further investigation, which includes two significant moments: hypothesis testing and graphical analysis.
+Data processing was divided into two main stages: the first calculated the frequency of occurrence of each digit and stored the results in a frequency matrix. From this data, a Matlab script determined the frequency of each digit based on the characteristics identified in the pre-processing, allowing the distance between the observed frequencies of each digit and the frequencies predicted by Benford's Law to be calculated.
 
+The second processing stage applied distance functions to compare these frequencies with the empirical frequencies predicted by Benford's Law, using the mean absolute deviation, the Kolmogorov-Smirnov test and the Kullback-Leibler divergence. The aim was to classify the data set and ensure network flow efficiency. The classification was carried out graphically and probabilistically, making it easier to visualise the discrepancies between the observed frequencies and those predicted by Benford's Law.
 
+In addition to calculating the p-value of each distance function, statistical inference was used for the classification, using Bayes' Theorem. This method aggregated the distance functions to calculate the global p-value for each flow, making it possible to compare the results with different degrees of statistical significance through hypothesis tests. The p-value indicated the probability of obtaining a test statistic as extreme as the one observed, assuming that the null hypothesis is correct, and defined the significance level for rejecting the null hypothesis. If the p-value was less than the significance level set, there was strong statistical evidence to reject the null hypothesis, indicating that the network flow was malicious. The significance levels adopted - 0.1, 0.01 and 0.05 - followed the standards recognised in the literature.
+
+![Benford_law and ](Cluster_4.jpg) 
 
 
 
