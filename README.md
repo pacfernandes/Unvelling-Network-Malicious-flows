@@ -31,9 +31,9 @@ If you wish to test the model with the dataset used, please send an e-mail to Pe
 | Tuesday| Malicious flows | 4000 |  
 | Wednesday| Benign flows | 2000 |  
 | Wednesday| Malicious flows | 10000 |  
-| Thursday| 120 | Benign flows | 2000 |
-| Thursday| 120 | Malicious flows | 4000 |   
-| Friday| 8600 | Benign flows | 2000 |
-| Friday| 8600 | Malicious flows | 1000 |
+| Thursday| Benign flows | 2000 |
+| Thursday | Malicious flows | 4000 |   
+| Friday | Benign flows | 2000 |
+| Friday| Malicious flows | 1000 |
 | Total | 10000 | 19000 |
 
