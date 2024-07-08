@@ -14,3 +14,8 @@ Several scripts are presented, including a built-in Matlab script (Extract first
 Subsequently, the obtained values are stored in a database format to .xls format. The first digit is extracted from this database, and the hypothesis tests (Pearson, Median Absolute Deviation, Kolmogorov-Smirnov test and Kullback-Leibler divergence) are applied. 
 
 This procedure will allow the classifications. This entire classification procedure can be carried out by calculating the P-value obtained from the distance between the empirical frequency of occurrence of the digits from Benford's law and the relative frequencies of the digits extracted from the set of flows. 
+
+# Dataset containing malicious and benign flows
+
+Este conjunto de dados foi obtido a partir do site da UNB (University of New Brunswick) e pode ser consultado [aqui] (https://www.unb.ca/cic/datasets/ids-2017.html).
+
