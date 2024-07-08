@@ -63,6 +63,14 @@ In addition to calculating the p-value of each distance function, statistical in
 
 ![Benford_law and ](Cluster_4.jpg) 
 
+# Some findings
+
+![Detection of malicious and benign flows using Bayes’ Theorem in conjunction with Fisher’s
+and Tippett’s methods to generate a global p-value for network flow classification](table_1.jpg)
+
+![Model evaluation results were obtained from creating an ensemble using the Fisher and
+Tippett methods](table_2.jpg)
+
 
 
 
