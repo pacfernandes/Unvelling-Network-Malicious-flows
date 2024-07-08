@@ -17,5 +17,23 @@ This procedure will allow the classifications. This entire classification proced
 
 # Dataset containing malicious and benign flows
 
-Este conjunto de dados foi obtido a partir do site da UNB (University of New Brunswick) e pode ser consultado [aqui] (https://www.unb.ca/cic/datasets/ids-2017.html).
+This dataset was obtained from the UNB (University of New Brunswick) website and can be consulted (https://www.unb.ca/cic/datasets/ids-2017.html).
+
+Important note: 
+This dataset only contains network flows.
+The final dataset is labelled correctly and consists of 19000 manipulated flows labelled 1 and 10000 benign flows labelled 0. 
+If you wish to test the model with the dataset used, please send an e-mail to Pedro.Fernandes@tus.ie 
+
+| Week date | Type of activity | Flows extracted | 
+| ---- | ---- | ---- | 
+| Monday| Only benign flows | 2000 | 
+| Tuesday| Benign flows | 2000 |  
+| Tuesday| Malicious flows | 4000 |  
+| Wednesday| Benign flows | 2000 |  
+| Wednesday| Malicious flows | 10000 |  
+| Thursday| 120 | Benign flows | 2000 |
+| Thursday| 120 | Malicious flows | 4000 |   
+| Friday| 8600 | Benign flows | 2000 |
+| Friday| 8600 | Malicious flows | 1000 |
+| Total | 10000 | 19000 |
 
