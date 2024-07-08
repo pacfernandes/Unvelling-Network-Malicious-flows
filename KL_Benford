@@ -1,0 +1,107 @@
+clc;
+close all;
+clear;
+workspace;
+fontSize = 10;
+
+filename = ('<file_name_in_.xlsx>');
+%t = readtable(filename);
+vnc = readcell(filename,'Range',[2 1]);
+calculate_first_digit=cellfun(@(v)v(1),""+vnc)-'0';
+
+[nlines,ncolumns] = size(calculate_first_digit);
+c = unique(calculate_first_digit);
+fprintf('Counting of the first digits in each row [Cell]:\n');
+%counts=histc(calculate_first_digit',1:max(calculate_first_digit(:))).';
+counts=histc(calculate_first_digit.',1:9).';
+disp("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+digits = (1:9).';
+conta1 = histcounts(calculate_first_digit,[digits;inf]);
+
+fprintf("Sum of the number elements of each row:\n");
+sum1 = sum(counts,2)
+fprintf("Calculates the relative frequency of each row\n");
+freq_occurance = (counts ./sum1).' %sum1
+freq_occurance1= (counts ./sum1)    %sum1
+
+% Benford law:
+benford = log10(1+(1./(digits)));
+ben = benford.';
+
+ % Monte-Carlo simulation
+    adjusted_freq = freq_occurance1 + (freq_occurance1 == 0) * 1e-10;
+    Observed_frequency = adjusted_freq;
+
+ % Part one: number of simulations
+    simulations = 1000000;
+    number_digits = length(ben);
+    simulated_KLS = zeros(simulations,1);
+
+ % Part two: generate the simulated data basead on the benford law
+ % calculate the divergence of KL.
+ for i=1:simulations
+    simulated_data = rand(1, number_digits);
+    simulated_data = simulated_data / sum(simulated_data); 
+    simulated_KL = sum(simulated_data .* log(simulated_data ./ ben));
+    simulated_KLS(i) = simulated_KL;
+ end 
+
+% % 3. Divergência de Kullback-Leibler
+kl_divergences = zeros(201, 1);
+p_values = zeros(201, 1);
+ for i = 1:nlines
+  %adjusted_freq = freq_occurance1 + (freq_occurance1 == 0) * 1e-10;
+  %Calcular a divergência de Kullback-Leibler
+  kl_div = sum(adjusted_freq(i,:) .* log(adjusted_freq(i,:) ./ ben));
+  % kl_div = sum(freq_occurance1(i,:) .* log(freq_occurance1(i,:) ./ (benford * sum(freq_occurance1(i,:)))));
+  kl_divergences(i) = kl_div;
+  % p-value
+  p_values(i) = mean(simulated_KLS >= kl_div);
+ end
+
+fKL_pValues = fopen("kl_pvalues.txt","w");
+ for l=1:nlines
+   for y=1:1 
+         fprintf(fKL_pValues,'%d\n',p_values(l,y));
+    end
+ end
+fclose(fKL_pValues);
+
+fprintf("Results for comparison with labels-Benford using KL:\n");
+
+fKL_first_benford = fopen("flow_KL_labels_Benford_0.05.txt","w");
+ for l=1:nlines
+   for y=1:1 
+     if(p_values(l,y) <0.05) %
+         fprintf(fKL_first_benford,'%d,1.0\n',l); 
+     else 
+             fprintf(fKL_first_benford,'%d,0.0\n',l);
+     end
+    end
+ end
+fclose(fKL_first_benford); 
+% % 
+fKL_second_benford = fopen("flow_KL_labels_Benford_0.1.txt","w");
+ for l=1:nlines
+   for y=1:1 
+     if(p_values(l,y) < 0.1) %pvalue1_benford
+         fprintf(fKL_second_benford ,'%d,1.0\n',l); % 0 - malicious I need to change
+         else
+         fprintf(fKL_second_benford ,'%d,0.0\n',l); % 1 - normal I need to change for future
+     end
+    end
+ end
+fclose(fKL_second_benford);
+% % 
+fKL_third_benford = fopen("flow_KL_labels_Benford_0.01.txt","w");
+ for l=1:nlines
+   for y=1:1 
+     if(p_values(l,y) < 0.01) %pvalue1_benford
+         fprintf(fKL_third_benford,'%d,1.0\n',l); 
+         else
+         fprintf(fKL_third_benford,'%d,0.0\n',l); 
+     end
+    end
+ end
+fclose(fKL_third_benford);
+% 
