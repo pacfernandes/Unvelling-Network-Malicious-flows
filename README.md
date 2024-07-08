@@ -49,7 +49,7 @@ First phase:
 Second phase:
 + An ensemble was developed from the p-values to maximise the detection of malicious flows, reducing the number of false positives and improving the evaluation of the model.
 
-![General architecture](.jpg)
+![General architecture](Arquitetura_geral inicial.jpg) 
 
 
 
