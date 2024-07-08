@@ -1,0 +1,8 @@
+### Read ##
+
+1. You must load the excel file in order to run the application.
+2. First you need to run MAD
+3. Second, run KS
+4. Third must run KL.
+5. Each individual file must be uploaded for evaluation and the script must run.
+6. Run the ensemble script with the files obtained in 2, 3 and 4. 
