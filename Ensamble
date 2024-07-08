@@ -1,0 +1,81 @@
+clc;
+close all;
+clear;
+workspace;
+fontSize = 10;
+
+SMAD = load('Mad_pvalues.txt');
+opts = detectImportOptions('Mad_pvalues.txt');
+table1 = readtable('Mad_pvalues.txt',opts);
+
+
+SKS = load('ks_pvalues.txt');
+opts1 = detectImportOptions('ks_pvalues.txt');
+table2 = readtable('ks_pvalues.txt',opts1);
+
+
+SKL = load('kl_pvalues.txt');
+opts2 = detectImportOptions('kl_pvalues.txt');
+table3 = readtable('kl_pvalues.txt',opts2);
+
+
+% Remove_first_column1= removevars(table1,"Var1");
+% Remove_first_column2= removevars(table2,"Var1");
+% Remove_first_column3= removevars(table3,"Var1");
+
+% New_names_from_original_labels = renamevars(Original_labels_from_data,["Var1","Var2"],["Data","Original_Status"]);
+% 
+% New_names_from_MAD_Benford_labels = renamevars(Remove_first_column1,"Var2","New_Status1");
+Mad = table2array(table1);
+% New_names_from_KS_Benford_labels = renamevars(Remove_first_column2,"Var2","New_Status2");
+KS = table2array(table2);
+% New_names_from_KL_Benford_labels = renamevars(Remove_first_column3,"Var2","New_Status3");
+Kl = table2array(table3);
+%DatasetToCompare = [New_names_from_MAD_Benford_labels New_names_from_KS_Benford_labels New_names_from_KL_Benford_labels];
+% 
+% %Probability that the traffic is malicious or benign:
+prior = 0.35 % 
+% 
+for i=1:29000
+posterior_mad(i) = prior * Mad(i) / (prior * Mad(i) + (1 - prior) * (1 - Mad(i)));
+posMad = posterior_mad.';
+posterior_ks(i) = prior * KS(i) / (prior * KS(i)+ (1 - prior) * (1 - KS(i)));
+posKs =  posterior_ks.';
+posterior_kl(i) = prior * Kl(i)/ (prior * Kl(i) + (1 - prior) * (1 - Kl(i)));
+posKl = posterior_kl.';
+end
+% 
+
+%Fisher:
+p_values = [posMad, posKs, posKl];  % seus p-valores individuais
+fisher_stat(i) = -2 * sum(log(p_values(i,1:3)));
+combined_p_value_Fisher(i) = 1 - chi2cdf(fisher_stat(i), 6);
+Fisher = combined_p_value_Fisher.';
+
+% Tippett:
+combined_p_value_Tippett(i) = min(p_values(i,:));
+Tippett = combined_p_value_Tippett.';
+
+Fisher_benford = fopen("flow_EnsambleFisher_labels_Benford.txt","w"); % for example
+ for l=1:29000
+   for y=1:1 
+     if(Fisher(l,y) < 0.1) %
+         fprintf(Fisher_benford ,'%d,1.0\n',l); 
+     else 
+             fprintf(Fisher_benford ,'%d,0.0\n',l);
+     end
+    end
+ end
+fclose(Fisher_benford);
+
+Tippett_benford = fopen("flow_EnsambleTippett_labels_Benford_n.txt","w"); % for example
+ for l=1:29000
+   for y=1:1 
+     if(Tippett(l,y) < 0.05) %
+         fprintf(Tippett_benford ,'%d,1.0\n',l); 
+     else 
+             fprintf(Tippett_benford ,'%d,0.0\n',l);
+     end
+    end
+ end
+fclose(Tippett_benford);
